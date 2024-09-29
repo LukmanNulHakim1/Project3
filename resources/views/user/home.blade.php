@@ -16,11 +16,11 @@
     <div class="container">
         <div class="row mt-3">
             <div class="col">
-                <h4 class="text-secondary">Selamat Datang (Nama User)</h4>
+                <h4 class="text-secondary">Selamat Datang  {{ Auth::user()->name }}</h4>
 
             </div>
             <div class="col"></div>
-            <div class="col-1"><a href="#" style="text-decoration: none">
+            <div class="col-1"><a href="{{ route('logout') }}" style="text-decoration: none">
                     <p class="text-end text-black fw-semibold">Logout</p>
                 </a></div>
         </div>

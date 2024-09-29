@@ -12,19 +12,46 @@
         </a>
     </div>
 
+    <div class="container mt-3">
+        @if (Session::get('failed'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Login Gagal!</strong> {{ Session::get('failed') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+    
+        @if (Session::get('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Berhasil!</strong> {{ Session::get('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+    </div>
+    
     <div class="container d-flex justify-content-center align-items-center" style="margin-top: 60px;">
         <div class="card" style="width: 35%;">
             <div class="card-body p-4">
                 <h3 class="card-title text-center">Login</h3>
-                <form action="/login" method="POST"> <!-- Gantilah action dengan rute login yang benar -->
+                <form action="{{ route('postLogin') }}" method="POST"><!-- Gantilah action dengan rute login yang benar -->
                     @csrf <!-- Untuk Laravel, pastikan rute dan @csrf digunakan -->
                     <div class="form-group mt-4">
                         <label class="text-secondary">Email Anda</label>
-                        <input type="email" class="form-control border border-secondary form-control-lg" name="email" required><br>
+                        <input type="email" class="form-control border border-secondary form-control-lg" name="email" required value="{{ old('email') }}">
+                        <span class="text-danger">
+                            @error('email')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    
                     </div>
                     <div class="form-group mt-1">
                         <label class="text-secondary">Password Anda</label>
-                        <input type="password" class="form-control border border-secondary form-control-lg" name="password" required>
+                        <input type="password" class="form-control border border-secondary form-control-lg" name="password"> 
+                        <span class="text-danger">
+                            @error('password')
+                                {{ $message }}
+                            @enderror
+                        </span>
                     </div>
                     <button type="submit" class="form-control btn btn-primary mt-5">Login</button>
                 </form>
